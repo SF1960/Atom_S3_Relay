@@ -4,33 +4,23 @@
 :Revision: version#
 :License: Public Domain
 
-= Project: {Project}
+= Project: {Atom S3, Relay Module and Arduino IOT}
 
-Describe your project
+Using an Atom S3 with a Relay Module using Arduino Cloud IOT
 
 == Step 1: Installation
-Please describe the steps to install this project.
 
-For example:
-
-1. Open this file
-2. Edit as you like
-3. Release to the World!
-
-== Step 2: Assemble the circuit
-
-Assemble the circuit following the diagram layout.png attached to the sketch
-
-== Step 3: Load the code
-
-Upload the code contained in this sketch on to your board
+1. Connect the Relay Module to the Atom
+2. Connect the Aton to a PC with Arduino IDE installed
+3. Change the WiFi Credentials in the arduino_secrets.h file
+4. Upload to the device
 
 === Folder structure
 
 ....
- sketch123                => Arduino sketch folder
-  ├── sketch123.ino       => main Arduino file
-  ├── schematics.png      => (optional) an image of the required schematics
+ Atom_S3_Relay            => Arduino sketch folder
+  ├── thingProperties.h   => Arduino IOT library
+  ├── atomHelper.h        => local library for Atom 
   ├── layout.png          => (optional) an image of the layout
   └── ReadMe.adoc         => this file
 ....

@@ -1,44 +1,46 @@
 :Author: ard12sgf1960
-:Email:
+:Email: sgfpcb@gmail.com
 :Date: 05/11/2023
-:Revision: version#
+:Revision: version#1.0
 :License: Public Domain
 
-= Project: {Atom S3, Relay Module and Arduino IOT}
+= Project: {Remote relay control via Arduino IOT Cloud}
 
-Using an Atom S3 with a Relay Module using Arduino Cloud IOT
+Control an M5 Relay Module using a M5 Atom S3 connected to Arduino IOT
 
 == Step 1: Installation
 
-1. Connect the Relay Module to the Atom
-2. Connect the Aton to a PC with Arduino IDE installed
-3. Change the WiFi Credentials in the arduino_secrets.h file
-4. Upload to the device
+Connect the Relay Module to the Atom
+
+== Step 2: Assemble the circuit
+
+1. Change the WiFi Credentials on arduino_secrets.h
+2. Upload the code contained in this sketch on to your board
 
 === Folder structure
 
 ....
- Atom_S3_Relay            => Arduino sketch folder
-  ├── thingProperties.h   => Arduino IOT library
-  ├── atomHelper.h        => local library for Atom 
-  ├── layout.png          => (optional) an image of the layout
-  └── ReadMe.adoc         => this file
+ M5_Atom_S3                  => Arduino sketch folder
+  ├── M5_Atom_S3_nov05a.ino  => main Arduino file
+  ├── thingProperties.h      => Arduino created library
+  ├── arduino_secrets.h      => library that contains WiFi Credentials
+  ├── atomHelper.h           => library file to manager the Atom
+  └── relayHelper.h          => library file to manager the Relay module
 ....
 
 === License
-This project is released under a {License} License.
+This project is released under a {PUBLIC} License.
 
 === Contributing
-To contribute to this project please contact: 
+To contribute to this project please contact: sgfpcb@gmail.com
 
 === BOM
 Add the bill of the materials you need for this project.
 
 |===
-| ID | Part name      | Part number | Quantity
-| R1 | 10k Resistor   | 1234-abcd   | 10       
-| L1 | Red LED        | 2345-asdf   | 5        
-| A1 | Arduino Zero   | ABX00066    | 1        
+| ID | Part name       | Part number | Quantity
+| A1 | M5 Atom S3      | 1234-abcd   | 1    
+| A2 | M5 Relay Module | 2345-asdf   | 1             
 |===
 
 

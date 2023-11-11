@@ -25,7 +25,8 @@ Connect the Relay Module to the Atom
   ├── thingProperties.h      => Arduino created library
   ├── arduino_secrets.h      => library that contains WiFi Credentials
   ├── atomHelper.h           => library file to manager the Atom
-  └── relayHelper.h          => library file to manager the Relay module
+  ├── relayHelper.h          => library file to manage the Relay module
+  └── WiFiHelper.h           => library file to manage connection to the internet
 ....
 
 === License

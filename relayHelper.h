@@ -20,7 +20,7 @@ namespace relay{
 
   void latchRelay(){
 
-    bool static on = false;
+    bool static on = true;
 
     if (on){
       digitalWrite(R1, LOW);
@@ -29,6 +29,7 @@ namespace relay{
       M5.Lcd.setTextColor(GREEN);
       M5.Lcd.drawString("OFF", 43, 50, 2);
       M5.Lcd.drawRoundRect(35, 45, 60, 40, 3, GREEN);
+      M5.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);
     } else {
       digitalWrite(R1, HIGH);
       relayOne = 1;
@@ -36,6 +37,7 @@ namespace relay{
       M5.Lcd.setTextColor(RED);
       M5.Lcd.drawString("ON", 50, 50, 2);
       M5.Lcd.drawRoundRect(35, 45, 60, 40, 3, RED);
+      M5.Lcd.drawRoundRect(0, 0, width, height, 5, RED);
     }
 
     on = !on;

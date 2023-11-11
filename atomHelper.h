@@ -16,9 +16,19 @@ namespace atom{
     M5.begin(true, true, false, false);  // Init M5AtomS3.
     width = M5.Lcd.width();
     height = M5.Lcd.height();
-    M5.Lcd.drawRoundRect(0, 0, width, height, 5, BLUE);
+  }
+
+  void connecting(){
+    M5.Lcd.fillScreen(BLACK);
     M5.Lcd.setTextColor(CYAN);
-    M5.Lcd.drawString("Relay Control", 20, 5, 2);
+    M5.Lcd.drawString("Connecting..",width,height,2);
+  }
+
+  void defaultScreen(){
+    M5.Lcd.fillScreen(BLACK);
+    M5.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);
+    M5.Lcd.setTextColor(CYAN);
+    M5.Lcd.drawString("Relay Control", 22, 5, 2);
     M5.Lcd.drawString("> Press screen <", 13, 108, 2);
     M5.Lcd.setTextSize(2);
     M5.Lcd.setTextColor(GREEN);

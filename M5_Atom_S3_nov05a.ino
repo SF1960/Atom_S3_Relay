@@ -22,11 +22,12 @@ These functions are generated with the Thing and added at the end of this sketch
 * Version Desc: Original Version
 * Board:        Atom S3
 * Author:       Steve Fuller
-* Website:      
+* Website:      https://github.com/SF1960/Atom_S3_Relay.git
 * Comments      
 ***************************************************************************************/
 #include <WiFi.h>
 #include <M5AtomS3.h>
+#include "WiFiHelper.h"
 #include "arduino_secrets.h"
 #include "thingProperties.h"
 #include "atomHelper.h"
@@ -37,6 +38,12 @@ void setup() {
   Serial.begin(115200);
   delay(1500); 
 
+  atom::setup();                         // start the M5 and obtain screen width and height
+  atom::connecting();                    // display connecting information
+
+  // attempt to connect to the internet
+  bool connected = wifi::connect(SECRET_SSID, SECRET_OPTIONAL_PASS);
+
   // Defined in thingProperties.h
   initProperties();
 
@@ -46,24 +53,35 @@ void setup() {
   setDebugMessageLevel(2);
   ArduinoCloud.printDebugInfo();
 
-  atom::setup();
-  relay::setup();
+  atom::defaultScreen();                 // show the default screen
+  relay::setup();                        // intialise the relay module
 
 }
 
 void loop() {
   ArduinoCloud.update();
 
-  M5.update();  // Read the press state of the key.
+  if(ArduinoCloud.connected()){
+    M5.Lcd.setTextSize(2);
+    M5.Lcd.setTextColor(CYAN);
+    M5.Lcd.drawString("~", 13, 57, 2);
+    M5.Lcd.drawString("~", 100, 57, 2);
+  } else {
+    M5.Lcd.setTextSize(2);
+    M5.Lcd.setTextColor(BLACK);
+    M5.Lcd.drawString("~", 13, 57, 2);
+    M5.Lcd.drawString("~", 100, 57, 2);
+  }
+
+  M5.update();                           // Read the press state of the key.
   if (M5.Btn.wasReleased()) {
-    relay::latchRelay();
+    relay::latchRelay();                 // function to toggle the relay
   }
   
 }
 
 void onRelayOneChange()  {
-  // Add your code here to act upon RelayOne change
-  relay::latchRelay();
+  relay::latchRelay();                   // function to toggle the relay
 }
 
 void onRelayTwoChange()  {

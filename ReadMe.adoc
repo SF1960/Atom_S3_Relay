@@ -26,7 +26,7 @@ Connect the Relay Module to the Atom
   ├── arduino_secrets.h      => library that contains WiFi Credentials
   ├── atomHelper.h           => library file to manager the Atom
   ├── relayHelper.h          => library file to manage the Relay module
-  └── WiFiHelper.h           => library file to manage connection to the internet
+  └── WiFiHelper.h           => library file to manage internet connection  
 ....
 
 === License
@@ -36,12 +36,11 @@ This project is released under a {PUBLIC} License.
 To contribute to this project please contact: sgfpcb@gmail.com
 
 === BOM
-Add the bill of the materials you need for this project.
 
 |===
 | ID | Part name       | Part number | Quantity
-| A1 | M5 Atom S3      | 1234-abcd   | 1    
-| A2 | M5 Relay Module | 2345-asdf   | 1             
+| A1 | M5 Atom S3      |             | 1    
+| A2 | M5 Relay Module |             | 1             
 |===
 
 

@@ -1,5 +1,12 @@
 #pragma once
 
+/*********************************************************************************
+* Local library for internet connection and management
+*
+* wifi::connect()                 attempt to connect to the internet
+*
+*********************************************************************************/
+
 namespace wifi {
 
   bool connect(String ssid, String password){
@@ -16,14 +23,14 @@ namespace wifi {
       M5.Lcd.printf(".");
       Serial.printf(".");
       delay(500);
-      if (tries++ >= 5){ return false; } // failed to connect
+      if (tries++ >= 5){ return false; }            // failed to connect after 5 attempts
     }
     
     Serial.printf("Connected to %s", ssid);
     M5.Lcd.printf("\nStarting Arduino..");
     delay(1000);
 
-    return true;                                     // connection successful
+    return true;                                    // connection successful
 
   } // connect()
 

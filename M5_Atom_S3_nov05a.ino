@@ -34,8 +34,8 @@ These functions are generated with the Thing and added at the end of this sketch
 #include "relayHelper.h"
 
 void setup() {
-  // Initialize serial and wait for port to open:
-  Serial.begin(115200);
+
+  Serial.begin(115200);                  // Initialize serial and wait for port to open:
   delay(1500); 
 
   atom::setup();                         // start the M5 and obtain screen width and height
@@ -44,8 +44,7 @@ void setup() {
   // attempt to connect to the internet
   bool connected = wifi::connect(SECRET_SSID, SECRET_OPTIONAL_PASS);
 
-  // Defined in thingProperties.h
-  initProperties();
+  initProperties();                      // Defined in thingProperties.h
 
   // Connect to Arduino IoT Cloud
   ArduinoCloud.begin(ArduinoIoTPreferredConnection);
@@ -61,6 +60,7 @@ void setup() {
 void loop() {
   ArduinoCloud.update();
 
+  // show the ~ symbol when connected to Arduino
   if(ArduinoCloud.connected()){
     M5.Lcd.setTextSize(2);
     M5.Lcd.setTextColor(CYAN);
@@ -74,7 +74,7 @@ void loop() {
   }
 
   M5.update();                           // Read the press state of the key.
-  if (M5.Btn.wasReleased()) {
+  if (M5.Btn.wasReleased()) {            // when the screen button is released
     relay::latchRelay();                 // function to toggle the relay
   }
   

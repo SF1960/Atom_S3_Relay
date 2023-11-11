@@ -3,27 +3,29 @@
 /*********************************************************************************
 * Local library for Atom control and management
 *
-* atom::setup()
+* atom::setup()               initialise the M5 Atom
+* atom::connecting()          display connecting 
+* atom::defaultScreen()       display the default screen configuration
 *
 *********************************************************************************/
 
-int width = 0;
-int height = 0;
+int width = 0;                           // initialise the width integer
+int height = 0;                          // initialise the height integer
 
 namespace atom{
 
   void setup(){
     M5.begin(true, true, false, false);  // Init M5AtomS3.
-    width = M5.Lcd.width();
-    height = M5.Lcd.height();
+    width = M5.Lcd.width();              // get the screen's width
+    height = M5.Lcd.height();            // get the screen's height
   }
 
   void connecting(){
     M5.Lcd.fillScreen(BLACK);
     M5.Lcd.setTextColor(CYAN);
-    M5.Lcd.drawString("Connecting..",width,height,2);
+    M5.Lcd.drawString("Connecting..", width, height, 2);
   }
-
+ 
   void defaultScreen(){
     M5.Lcd.fillScreen(BLACK);
     M5.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);

@@ -21,9 +21,9 @@ To connect LED Christmas Lamps
 == Step 2: Assemble the circuit
 
 1. Change the WiFi Credentials in arduino_secrets.h using Notepad or similar text editor
-   #define SECRET_DEVICE_KEY "XXXXXXX"
-   #define SECRET_OPTIONAL_PASS "XXXXXXX"
-   #define SECRET_SSID "XXXXXXX"
+a. #define SECRET_DEVICE_KEY "XXXXXXX"
+b. #define SECRET_OPTIONAL_PASS "XXXXXXX"
+c. #define SECRET_SSID "XXXXXXX"
 2. Upload the code contained in this sketch on to your board
 
 == Step 3: Operation

@@ -9,25 +9,25 @@
 
 namespace wifi {
 
-  bool connect(String ssid, String password){
+  bool connect(){
 
     //connect to WiFi
-    Serial.printf("Connecting to %s ", ssid);
-    M5.Lcd.printf("Connecting.");
+    Serial.printf("Connect to Select_WiFi\n");
+    M5.Lcd.printf("Connect to \n");
+    M5.Lcd.printf("Select_WiFi on\n");
+    M5.Lcd.printf("on a device and\n");
+    M5.Lcd.printf("choose your network.\n");
+    M5.Lcd.printf("Enter your password.");
 
+    // use WiFiManager library to obtain available WiFi networks
     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid.c_str(), password.c_str());
-
-    int tries = 0;
-    while (WiFi.status() != WL_CONNECTED) {
-      M5.Lcd.printf(".");
-      Serial.printf(".");
-      delay(500);
-      if (tries++ >= 5){ return false; }            // failed to connect after 5 attempts
-    }
+    WiFiManager wm;
+    //wm.resetSettings(); //uncomment to force selecting WiFi network 
+    bool res;
+    res = wm.autoConnect("Select_WiFi","");
     
-    Serial.printf("Connected to %s", ssid);
-    M5.Lcd.printf("\nStarting Arduino..");
+    Serial.printf("Connected to %s", WiFi.SSID());
+    M5.Lcd.printf("\nConnected %s\n", WiFi.SSID().c_str());
     delay(1000);
 
     return true;                                    // connection successful

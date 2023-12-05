@@ -19,7 +19,7 @@ These functions are generated with the Thing and added at the end of this sketch
 * Description:  Arduino CLoud control of M5 relay unit using the Atom S3
 * Sketch:       M5_Atom_S3_nov06a.ino
 * Version:      1.0
-* Version Desc: Original Version
+* Version Desc: Original Version. Using WiFi Manager to connect to any network
 * Board:        Atom S3
 * Author:       Steve Fuller
 * Website:      https://github.com/SF1960/Atom_S3_Relay.git
@@ -27,7 +27,9 @@ These functions are generated with the Thing and added at the end of this sketch
 ***************************************************************************************/
 #include <WiFi.h>
 #include <M5AtomS3.h>
+#include <WiFiManager.h>
 #include "WiFiHelper.h"
+
 #include "arduino_secrets.h"
 #include "thingProperties.h"
 #include "atomHelper.h"
@@ -41,13 +43,11 @@ void setup() {
   atom::setup();                         // start the M5 and obtain screen width and height
   atom::connecting();                    // display connecting information
 
-  // attempt to connect to the internet
-  bool connected = wifi::connect(SECRET_SSID, SECRET_OPTIONAL_PASS);
-
+  bool connected = wifi::connect();      // use WiFiManager library to connect to an available WiFi network
+ 
   initProperties();                      // Defined in thingProperties.h
 
-  // Connect to Arduino IoT Cloud
-  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);   // Connect to Arduino IoT Cloud
   
   setDebugMessageLevel(2);
   ArduinoCloud.printDebugInfo();
@@ -60,7 +60,7 @@ void setup() {
 void loop() {
   ArduinoCloud.update();
 
-  // show the ~ symbol when connected to Arduino
+  // show the ~ symbol on the display when connected to Arduino
   if(ArduinoCloud.connected()){
     M5.Lcd.setTextSize(2);
     M5.Lcd.setTextColor(CYAN);

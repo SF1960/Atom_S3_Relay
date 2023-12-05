@@ -10,28 +10,12 @@ Control an M5 Relay Module using a M5 Atom S3 connected to Arduino IOT
 
 == Step 1: Installation
 
-1. Connect the Relay Module to the Atom
-2. Connect the Atom as a Device on Arduino and obtain its secret device key
-3. Connect as a switch using the NC, NO, C connections
-
-To connect LED Christmas Lamps
-1. Cut one of the Low Voltage Transformer output cables 
-2. Connect one side to C and the other to NO.
+Connect the Relay Module to the Atom
 
 == Step 2: Assemble the circuit
 
-1. Change the WiFi Credentials in arduino_secrets.h using Notepad or similar text editor
-a. #define SECRET_DEVICE_KEY "XXXXXXX"
-b. #define SECRET_OPTIONAL_PASS "XXXXXXX"
-c. #define SECRET_SSID "XXXXXXX"
+1. Change the WiFi Credentials on arduino_secrets.h
 2. Upload the code contained in this sketch on to your board
-
-== Step 3: Operation
-
-1. The Atom will try and connect to you WiFi
-2. When successful, the display will show a ~ either side of the display
-3. Switch the relay by pressing the display OR
-4. Use a Dashboard in Arduino
 
 === Folder structure
 

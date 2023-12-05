@@ -14,8 +14,12 @@ Connect the Relay Module to the Atom
 
 == Step 2: Assemble the circuit
 
-1. Change the WiFi Credentials on arduino_secrets.h
-2. Upload the code contained in this sketch on to your board
+1. Upload the code contained in this sketch on to your board
+2. Using a separate device connect to WiFi_Select network
+3. In the webpage that opens, select your network
+4. Enter the password for the network
+5. Once connected navigate to your Arduino Dashboard to remotely control device
+6. Alternatively, press the screen to toggle output
 
 === Folder structure
 
@@ -24,6 +28,7 @@ Connect the Relay Module to the Atom
   ├── M5_Atom_S3_nov05a.ino  => main Arduino file
   ├── thingProperties.h      => Arduino created library
   ├── arduino_secrets.h      => library that contains WiFi Credentials
+  ├── WiFiManage.h           => library to enable connection to any WiFI network
   ├── atomHelper.h           => library file to manager the Atom
   ├── relayHelper.h          => library file to manage the Relay module
   └── WiFiHelper.h           => library file to manage internet connection  

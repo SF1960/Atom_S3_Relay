@@ -21,6 +21,8 @@ These functions are generated with the Thing and added at the end of this sketch
 * Version:      1.0
 * Version Desc: Original Version. Using WiFi Manager to connect to any network
 *               Screen on/off via relayTwo cloud variable
+*               Added a restart timer if network disconnected
+*               Forced the cloud variables ar device start
 * Board:        Atom S3
 * Author:       Steve Fuller
 * Website:      https://github.com/SF1960/Atom_S3_Relay.git
@@ -35,6 +37,9 @@ These functions are generated with the Thing and added at the end of this sketch
 #include "thingProperties.h"
 #include "atomHelper.h"
 #include "relayHelper.h"
+
+unsigned long Reconnect = 1000 * 60 * 2; // 2 minute delay before restart
+unsigned long PreviousRestartMillis = 0;
 
 void setup() {
 
@@ -57,22 +62,39 @@ void setup() {
   relay::setup();                        // intialise the relay module
 
 }
-
+ 
 void loop() {
+
   ArduinoCloud.update();
 
   // show the ~ symbol on the display when connected to Arduino
   if(ArduinoCloud.connected()){
+
     M5.Lcd.setTextSize(2);
     M5.Lcd.setTextColor(CYAN);
     M5.Lcd.drawString("~", 13, 57, 2);
     M5.Lcd.drawString("~", 100, 57, 2);
+
   } else {
+
     M5.Lcd.setTextSize(2);
     M5.Lcd.setTextColor(BLACK);
     M5.Lcd.drawString("~", 13, 57, 2);
     M5.Lcd.drawString("~", 100, 57, 2);
     atom::screenOn();                    // force display ON when not connected to Arduino
+
+    /* 
+    * If not connected to Arduino then wait for Reconnect minutes
+    * and restart the device and attempt to connect again
+    */
+    unsigned long CurrentRestartMillis = millis();
+    if (CurrentRestartMillis - PreviousRestartMillis >= Reconnect) {
+
+      PreviousRestartMillis = CurrentRestartMillis;
+      ESP.restart();
+
+    }
+
   }
 
   M5.update();                           // Read the press state of the key.

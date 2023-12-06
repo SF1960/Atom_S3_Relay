@@ -7,8 +7,8 @@
 * atom::setup()               initialise the M5 Atom
 * atom::connecting()          display connecting 
 * atom::defaultScreen()       display the default screen configuration
-* atom::screenOn()
-* atom::screenOff()
+* atom::screenOn()            turn on display
+* atom::screenOff()           turn off display
 *
 *********************************************************************************/
 
@@ -20,6 +20,8 @@ namespace atom{
 
   void setup(){
     pinMode(backLight, INPUT);           // backlight input pin
+    relayOne = false;                    // set the relay cloud variable to false
+    relayTwo = true;                     // set the screen cloud variable to true
     M5.begin(true, true, false, false);  // Init M5AtomS3.
     width = M5.Lcd.width();              // get the screen's width
     height = M5.Lcd.height();            // get the screen's height
@@ -47,10 +49,12 @@ namespace atom{
 
   void screenOFF(){
     digitalWrite(backLight, LOW);        // turn off backlight
+    relayTwo = false;
   }
 
   void screenOn(){
     digitalWrite(backLight, HIGH);       // turn on backlight
+    relayTwo = true;
   }
 
 }

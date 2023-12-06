@@ -72,6 +72,7 @@ void loop() {
     M5.Lcd.setTextColor(BLACK);
     M5.Lcd.drawString("~", 13, 57, 2);
     M5.Lcd.drawString("~", 100, 57, 2);
+    atom::screenOn();                    // force display ON when not connected to Arduino
   }
 
   M5.update();                           // Read the press state of the key.

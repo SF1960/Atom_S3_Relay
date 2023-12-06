@@ -20,6 +20,7 @@ These functions are generated with the Thing and added at the end of this sketch
 * Sketch:       M5_Atom_S3_nov06a.ino
 * Version:      1.0
 * Version Desc: Original Version. Using WiFi Manager to connect to any network
+*               Screen on/off via relayTwo cloud variable
 * Board:        Atom S3
 * Author:       Steve Fuller
 * Website:      https://github.com/SF1960/Atom_S3_Relay.git
@@ -80,10 +81,22 @@ void loop() {
   
 }
 
+// function to toggle the relay
 void onRelayOneChange()  {
-  relay::latchRelay();                   // function to toggle the relay
+  relay::latchRelay();                  
 }
 
+// turn an and off the screen
 void onRelayTwoChange()  {
-  // Add your code here to act upon RelayTwo change
+
+  static bool screen = false;
+
+  if (screen == true){
+    atom::screenOFF();
+    screen = false;
+  } else {
+    atom::screenOn();
+    screen = true;
+  }
+
 }

@@ -10,7 +10,8 @@ Control an M5 Relay Module using a M5 Atom S3 connected to Arduino IOT
 
 == Step 1: Installation
 
-Connect the Relay Module to the Atom
+1. Connect the Relay Module to the Atom
+2. Connect a Type-C USB cable to the Atom
 
 == Step 2: Assemble the circuit
 
@@ -21,7 +22,7 @@ Connect the Relay Module to the Atom
 5. Once connected navigate to your Arduino Dashboard to remotely control device
 6. Alternatively, press the screen to toggle output
 
-== Function
+== Step 3: Function
 
 When switched on, the device attempts to connect to a WiFi network.
 If it has previously connected to a nearby network then it will.

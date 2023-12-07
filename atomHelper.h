@@ -15,14 +15,14 @@
 int width = 0;                           // initialise the width integer
 int height = 0;                          // initialise the height integer
 #define backLight 16                     // backlight pin
+#define resetPin 0                       // device reset pin
 
 namespace atom{
 
   void setup(){
     pinMode(backLight, INPUT);           // backlight input pin
-    relayOne = false;                    // set the relay cloud variable to false
-    relayTwo = true;                     // set the screen cloud variable to true
-    M5.begin(true, true, false, false);  // Init M5AtomS3.
+    pinMode(resetPin, INPUT);            // reset pin
+    M5.begin(true, true, false, false);  // Init M5AtomS3
     width = M5.Lcd.width();              // get the screen's width
     height = M5.Lcd.height();            // get the screen's height
   }
@@ -55,6 +55,12 @@ namespace atom{
   void screenOn(){
     digitalWrite(backLight, HIGH);       // turn on backlight
     relayTwo = true;
+  }
+
+  void resetDevice(){
+
+    digitalWrite(resetPin, LOW);         // reset device
+
   }
 
 }

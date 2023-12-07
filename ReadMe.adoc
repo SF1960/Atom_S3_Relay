@@ -78,6 +78,8 @@ To contribute to this project please contact: sgfpcb@gmail.com
 
 
 === Help
+For in depth help [Document](https://docs.google.com/document/d/1wBibVKYTXqv4fjLcD-TnI1DDwYrZtxVmoOs5ahwT5bs/edit?usp=sharing)
+
 This document is written in the _AsciiDoc_ format, a markup language to describe documents. 
 If you need help you can search the http://www.methods.co.nz/asciidoc[AsciiDoc homepage]
 or consult the http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]

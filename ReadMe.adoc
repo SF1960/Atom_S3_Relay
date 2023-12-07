@@ -6,6 +6,8 @@
 
 ![Device](https://photos.app.goo.gl/SQngwvKwtUrTYjNf6 "M5 Atom S3")
 
+<img src="https://photos.app.goo.gl/SQngwvKwtUrTYjNf6" alt="Atom S3" style="height: 100px; width:100px;"/>
+
 = Project: {Remote relay control via Arduino IOT Cloud}
 
 Control an M5 Relay Module using a M5 Atom S3 connected to Arduino IOT

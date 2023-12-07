@@ -4,9 +4,9 @@
 :Revision: version#1.0
 :License: Public Domain
 
-.A mountain sunset 
-[#img-sunset,link=https://photos.app.goo.gl/6PfPD1iXKHCLphfn8] 
-image::sunset.jpg[Sunset,200,100]
+.A Atom S3 
+[#img-device,link=https://photos.app.goo.gl/6PfPD1iXKHCLphfn8] 
+image::device.jpg[Device,200,100]
 
 = Project: {Remote relay control via Arduino IOT Cloud}
 

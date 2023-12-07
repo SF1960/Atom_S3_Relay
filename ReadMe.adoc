@@ -4,9 +4,7 @@
 :Revision: version#1.0
 :License: Public Domain
 
-![Device](https://photos.app.goo.gl/SQngwvKwtUrTYjNf6 "M5 Atom S3")
-
-<img src="https://photos.app.goo.gl/SQngwvKwtUrTYjNf6" alt="Atom S3" style="height: 100px; width:100px;"/>
+image::https://photos.app.goo.gl/6PfPD1iXKHCLphfn8 [Device]
 
 = Project: {Remote relay control via Arduino IOT Cloud}
 

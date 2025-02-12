@@ -7,30 +7,31 @@
 *
 *********************************************************************************/
 
+char ssid[] = "VM3988748_LJ";     //  your network SSID (name)
+char pass[] = "nr5jfPxrvxmw";     // your network password
+int status = WL_IDLE_STATUS;      // the Wifi radio's status
+
 namespace wifi {
 
   bool connect(){
 
-    //connect to WiFi
-    Serial.printf("Connect to Select_WiFi\n");
-    M5.Lcd.printf("Connect to \n");
-    M5.Lcd.printf("Select_WiFi on\n");
-    M5.Lcd.printf("on a device and\n");
-    M5.Lcd.printf("choose your network.\n");
-    M5.Lcd.printf("Enter your password.");
-
-    // use WiFiManager library to obtain available WiFi networks
-    WiFi.mode(WIFI_STA);
-    WiFiManager wm;
-    //wm.resetSettings(); //uncomment to force selecting WiFi network 
-    bool res;
-    res = wm.autoConnect("Select_WiFi","");
+  //connect to WiFi
     
-    Serial.printf("Connected to %s", WiFi.SSID());
-    M5.Lcd.printf("\nConnected %s\n", WiFi.SSID().c_str());
-    delay(1000);
+  Serial.print("Attempting to connect to WPA SSID: ");
+  Serial.println(ssid);
 
-    return true;                                    // connection successful
+  WiFi.begin(ssid, pass);                  // Connect wifi and return connection status.
+  while (WiFi.status() != WL_CONNECTED) {  // If the wifi connection fails. 
+    delay(500);                            // delay 0.5s.
+    AtomS3.Lcd.print(".");
+  }
+
+  Serial.printf("Connected to %s\n", WiFi.SSID());
+  AtomS3.Lcd.printf("\n\n ** Connected ** \n\n");
+  AtomS3.Lcd.printf(WiFi.SSID().c_str());
+  delay(2000);
+
+  return true;                                    // connection successful
 
   } // connect()
 

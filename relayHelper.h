@@ -17,6 +17,8 @@ namespace relay{
   void setup(){
     pinMode(R1, OUTPUT);            // set R1 as an output
     digitalWrite(R1, LOW);          // initialise the relay as off
+    relayOne = false;               // set the cloud variable for the relay to off
+    relayTwo = true;                // set the cloud variable for the screen to on
   }
 
   void latchRelay(){
@@ -24,29 +26,44 @@ namespace relay{
     bool static on = true;          // define a static boolean as true
 
     if (on){
+      
       digitalWrite(R1, LOW);        // turn off the relay
-      relayOne = 0;                 // set the cloud variable to 0
+      relayOne = false;             // set the cloud variable to 0
 
-      M5.Lcd.fillRect(40, 45, 60, 40, BLACK);
-      M5.Lcd.setTextColor(GREEN);
-      M5.Lcd.drawString("OFF", 43, 50, 2);
-      M5.Lcd.drawRoundRect(35, 45, 60, 40, 3, GREEN);
-      M5.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);
+      AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
+      AtomS3.Lcd.setTextColor(GREEN);
+      AtomS3.Lcd.drawString("OFF", 43, 50, 2);
+      AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, GREEN);
+      AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);
 
     } else {
 
       digitalWrite(R1, HIGH);       // turn on the relay
-      relayOne = 1;                 // set the cloud variable to 1
+      relayOne = true;              // set the cloud variable to 1
 
-      M5.Lcd.fillRect(40, 45, 60, 40, BLACK);
-      M5.Lcd.setTextColor(RED);
-      M5.Lcd.drawString("ON", 50, 50, 2);
-      M5.Lcd.drawRoundRect(35, 45, 60, 40, 3, RED);
-      M5.Lcd.drawRoundRect(0, 0, width, height, 5, RED);
+      AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
+      AtomS3.Lcd.setTextColor(RED);
+      AtomS3.Lcd.drawString("ON", 50, 50, 2);
+      AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, RED);
+      AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, RED);
     }
 
     on = !on;                       // toggle the static variable
 
   }
 
+  void relay1_ON(){
+    
+    digitalWrite(R1, HIGH);         // turn on the devices output pin
+    relayOne = 1;                   // set the cloud variable to inform the dashboard 
+    
+  }
+  
+  void relay1_OFF(){
+    
+    digitalWrite(R1, LOW);          // turn off the devices outout pin
+    relayOne = 0;                   // set the cloud variable to inform the dashboard 
+    
+  }
+  
 }

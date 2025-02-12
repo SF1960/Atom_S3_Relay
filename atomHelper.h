@@ -4,63 +4,68 @@
 /*********************************************************************************
 * Local library for Atom control and management
 *
-* atom::setup()               initialise the M5 Atom
-* atom::connecting()          display connecting 
+* atom::setup()               initialise the M5 Atom S3
+* atom::connecting()          display connecting message
 * atom::defaultScreen()       display the default screen configuration
 * atom::screenOn()            turn on display
 * atom::screenOff()           turn off display
+* atom::brightness()          set the screen's brightness
 *
 *********************************************************************************/
 
 int width = 0;                           // initialise the width integer
 int height = 0;                          // initialise the height integer
 #define backLight 16                     // backlight pin
-#define resetPin 0                       // device reset pin
 
 namespace atom{
 
   void setup(){
     pinMode(backLight, INPUT);           // backlight input pin
-    pinMode(resetPin, INPUT);            // reset pin
-    M5.begin(true, true, false, false);  // Init M5AtomS3
-    width = M5.Lcd.width();              // get the screen's width
-    height = M5.Lcd.height();            // get the screen's height
+    relayOne = false;                    // set the relay cloud variable to false
+    relayTwo = true;                     // set the screen cloud variable to true
+    auto cfg = M5.config();
+    AtomS3.begin(cfg);
+    width = AtomS3.Lcd.width();          // get the screen's width
+    height = AtomS3.Lcd.height();        // get the screen's height
   }
 
   void connecting(){
-    M5.Lcd.fillScreen(BLACK);
-    M5.Lcd.setTextColor(CYAN);
-    M5.Lcd.drawString("Connecting..", width, height, 2);
+    AtomS3.Lcd.fillScreen(BLACK);
+    AtomS3.Lcd.setTextColor(CYAN);
+    AtomS3.Lcd.drawString("Connecting..", width, height, 2);
   }
  
   void defaultScreen(){
-    M5.Lcd.fillScreen(BLACK);
-    M5.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);
-    M5.Lcd.setTextColor(CYAN);
-    M5.Lcd.drawString("Relay Control", 22, 5, 2);
-    M5.Lcd.drawString("> Press screen <", 13, 108, 2);
-    M5.Lcd.setTextSize(2);
-    M5.Lcd.setTextColor(GREEN);
-    M5.Lcd.drawString("OFF", 43, 50, 2);
-    M5.Lcd.drawRoundRect(35, 45, 60, 40, 3, GREEN);
+    AtomS3.Lcd.fillScreen(BLACK);
+    AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);
+    AtomS3.Lcd.setTextSize(1);
+    AtomS3.Lcd.setTextColor(CYAN);
+    AtomS3.Lcd.drawString("Relay Control", 22, 5, 2);
+    AtomS3.Lcd.drawString("> Press screen <", 13, 108, 2);
+    AtomS3.Lcd.setTextSize(2);
+    AtomS3.Lcd.setTextColor(GREEN);
+    AtomS3.Lcd.drawString("OFF", 43, 50, 2);
+    AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, GREEN);
 
-    USBSerial.printf("WIDTH: %d HEIGHT: %d\n", width, height);
+    Serial.printf("WIDTH: %d HEIGHT: %d\n", width, height);
   }
 
   void screenOFF(){
-    digitalWrite(backLight, LOW);        // turn off backlight
-    relayTwo = false;
+    digitalWrite(backLight, LOW);                // turn off backlight - the preffered method, which doesn't seem to work at the moment
+    AtomS3.Lcd.setBrightness(0);                 // set the screen brightness to zero (off)
+    relayTwo = false;                            // set the screen relay Cloud Variable to False
+    Serial.printf("relayTwo: %d",relayTwo);
   }
 
   void screenOn(){
-    digitalWrite(backLight, HIGH);       // turn on backlight
-    relayTwo = true;
+    digitalWrite(backLight, HIGH);               // turn on backlight - the preffered method, which doesn't seem to work at the moment
+    AtomS3.Lcd.setBrightness(screenBrightness);  // set the screen brightness to the value iin the cloud
+    relayTwo = true;                             // set the screen relay Cloud Variable to True
+    Serial.printf("relayTwo: %d",relayTwo);
   }
 
-  void resetDevice(){
-
-    digitalWrite(resetPin, LOW);         // reset device
-
+  void brightness(){
+    AtomS3.Lcd.setBrightness(screenBrightness);  // set the screen's brightness depending on the value of cloud variable
   }
-
+  
 }

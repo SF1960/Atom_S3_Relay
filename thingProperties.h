@@ -3,16 +3,18 @@
 #include <ArduinoIoTCloud.h>
 #include <Arduino_ConnectionHandler.h>
 
-const char DEVICE_LOGIN_NAME[]  = "5c24f4f5-0661-48fd-8311-8f5d449cb30e";
+const char DEVICE_LOGIN_NAME[]  = "c43d2460-543f-4bf0-b51a-3fca489848f4"; 
 
 const char SSID[]               = SECRET_SSID;    // Network SSID (name)
 const char PASS[]               = SECRET_OPTIONAL_PASS;    // Network password (use for WPA, or use as key for WEP)
 const char DEVICE_KEY[]  = SECRET_DEVICE_KEY;    // Secret device password
 
+void onScreenBrightnessChange();
 void onRelayOneChange();
 void onRelayTwoChange();
 
-int pushButton;
+int screenBrightness;
+bool pushButton;
 bool relayOne;
 bool relayTwo;
 
@@ -20,6 +22,7 @@ void initProperties(){
 
   ArduinoCloud.setBoardId(DEVICE_LOGIN_NAME);
   ArduinoCloud.setSecretDeviceKey(DEVICE_KEY);
+  ArduinoCloud.addProperty(screenBrightness, READWRITE, ON_CHANGE, onScreenBrightnessChange);
   ArduinoCloud.addProperty(pushButton, READ, ON_CHANGE, NULL);
   ArduinoCloud.addProperty(relayOne, READWRITE, ON_CHANGE, onRelayOneChange);
   ArduinoCloud.addProperty(relayTwo, READWRITE, ON_CHANGE, onRelayTwoChange);

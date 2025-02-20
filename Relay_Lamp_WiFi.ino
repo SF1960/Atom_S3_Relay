@@ -193,6 +193,7 @@ void onInAutoChange()  {
   if(inAuto==true){
       AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
       AtomS3.Lcd.setTextColor(GREEN);
+      AtomS3.Lcd.setTextSize(2);
       AtomS3.Lcd.drawString("AUT", 43, 50, 2);
       AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, BLUE);
       AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, BLUE); 

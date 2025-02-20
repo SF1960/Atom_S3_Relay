@@ -28,6 +28,7 @@ These functions are generated with the Thing and added at the end of this sketch
 *               Added a restart timer if network disconnected
 *               Forced the cloud variables ar device start
 *               2025-02-12 Added a screen brightness cloud variable to change the device's screen brightness
+*               2025-02-19 Added an Arduino IOT Schedule to turn on and off the relay
 * Board:        Atom S3
 * Author:       Steve Fuller
 * Website:      https://github.com/SF1960/Atom_S3_Relay.git

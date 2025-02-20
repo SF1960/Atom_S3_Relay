@@ -46,6 +46,7 @@ These functions are generated with the Thing and added at the end of this sketch
 unsigned long Reconnect = 1000 * 60 * 2; // 2 minute delay before restart
 unsigned long PreviousRestartMillis = 0;
 
+// start up variables
 bool screen = true;                      // screen on variable
 
 void setup() {
@@ -53,7 +54,7 @@ void setup() {
   Serial.begin(115200);                  // Initialize serial and wait for port to open:
   delay(1500); 
 
-  atom::setup();                         // start the AtomS3 and obtain screen width and height
+  atom::setup();                         // start the AtomS3, obtain screen width and height, and set relay cloud variables to default
   atom::connecting();                    // display connecting information
 
   bool connected = wifi::connect();      // use WiFi.h library to connect to an available WiFi network
@@ -68,11 +69,26 @@ void setup() {
   atom::defaultScreen();                 // show the default screen
   relay::setup();                        // intialise the relay module
 
+  Serial.println("Setup complete");
 }
  
 void loop() {
 
   ArduinoCloud.update();                  // update the cloud every loop of the code
+
+  // if in automatic mode (schedule)
+  if(inAuto==true){
+    
+    // check on and off time
+    if (schedule.isActive()) {
+       // whenever the job is "active", turn on the Relay
+      relay::relay1_ON();
+    } else {
+       // whenever the job is "not active", turn off the Realy
+      relay::relay1_OFF();
+    }
+    
+  }
 
   /*
   Code to display one of two screens
@@ -86,6 +102,8 @@ void loop() {
     AtomS3.Lcd.setTextColor(CYAN);
     AtomS3.Lcd.drawString("~", 13, 57, 2);
     AtomS3.Lcd.drawString("~", 100, 57, 2);
+
+    time_read = ArduinoCloud.getLocalTime();
 
   } else {
 
@@ -116,22 +134,27 @@ void loop() {
   toggle the relay state
   */
   AtomS3.update();
-  if (AtomS3.BtnA.wasReleased()) {
-    relay::latchRelay();
-  }
-  
-}
+
+   if (AtomS3.BtnA.wasReleased()) {     // if screen pressed
+     if(inAuto==false){                 // if not in auto
+       relay::latchRelay();             // toggle the relay     
+     }
+   }
+
+} // loop()
 
 // function to toggle the relay. Called by Arduino Cloud Dashboard/Thing
 void onRelayOneChange()  {
-  relay::latchRelay();                  
+  if(inAuto==false){         // if inAuto then do not allow manual button press
+    relay::latchRelay();     // toggle the relay 
+  }
 }
 
 // turn on and off the screen. Called by Arduino Cloud Dashboard/Thing
 void onRelayTwoChange()  {
 
   if (screen == true){
-    atom::screenOFF();
+    atom::screenOff();
     screen = false;
   } else {
     atom::screenOn();
@@ -152,4 +175,39 @@ void onScreenBrightnessChange() {
 }
 
 
-
+/*
+  Since Schedule is READ_WRITE variable, onScheduleChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onScheduleChange()  {
+  // Add your code here to act upon Schedule change
+}
+/*
+  Since InAuto is READ_WRITE variable, onInAutoChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onInAutoChange()  {
+  // Add your code here to act upon InAuto change
+  inAuto != inAuto;
+  
+  if(inAuto==true){
+      AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
+      AtomS3.Lcd.setTextColor(GREEN);
+      AtomS3.Lcd.drawString("AUT", 43, 50, 2);
+      AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, BLUE);
+      AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, BLUE); 
+      AtomS3.Lcd.fillRect(5, 105, width - 10, 20, BLACK); // erase the > press < text at the bottom of the screen
+      AtomS3.Lcd.setTextSize(1);
+      AtomS3.Lcd.drawString(">  Schedule  <", 13, 108, 2);
+  } else {
+      AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
+      AtomS3.Lcd.setTextSize(2);
+      AtomS3.Lcd.setTextColor(GREEN);
+      AtomS3.Lcd.drawString("OFF", 43, 50, 2);
+      AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, GREEN);
+      AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN); 
+      AtomS3.Lcd.fillRect(5, 105, width - 10, 20, BLACK); // erase the > press < text at the bottom of the screen
+      AtomS3.Lcd.setTextSize(1);
+      AtomS3.Lcd.drawString("> Press screen <", 13, 108, 2);
+  }
+}

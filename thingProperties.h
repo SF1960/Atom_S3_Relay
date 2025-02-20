@@ -3,29 +3,37 @@
 #include <ArduinoIoTCloud.h>
 #include <Arduino_ConnectionHandler.h>
 
-const char DEVICE_LOGIN_NAME[]  = "c43d2460-543f-4bf0-b51a-3fca489848f4"; 
+const char DEVICE_LOGIN_NAME[]  = "c43d2460-543f-4bf0-b51a-3fca489848f4";
 
 const char SSID[]               = SECRET_SSID;    // Network SSID (name)
 const char PASS[]               = SECRET_OPTIONAL_PASS;    // Network password (use for WPA, or use as key for WEP)
 const char DEVICE_KEY[]  = SECRET_DEVICE_KEY;    // Secret device password
 
 void onScreenBrightnessChange();
+void onScheduleChange();
+void onInAutoChange();
 void onRelayOneChange();
 void onRelayTwoChange();
 
 int screenBrightness;
+CloudSchedule schedule;
+bool inAuto;
 bool pushButton;
 bool relayOne;
 bool relayTwo;
+CloudTime time_read;
 
 void initProperties(){
 
   ArduinoCloud.setBoardId(DEVICE_LOGIN_NAME);
   ArduinoCloud.setSecretDeviceKey(DEVICE_KEY);
   ArduinoCloud.addProperty(screenBrightness, READWRITE, ON_CHANGE, onScreenBrightnessChange);
+  ArduinoCloud.addProperty(schedule, READWRITE, ON_CHANGE, onScheduleChange);
+  ArduinoCloud.addProperty(inAuto, READWRITE, ON_CHANGE, onInAutoChange);
   ArduinoCloud.addProperty(pushButton, READ, ON_CHANGE, NULL);
   ArduinoCloud.addProperty(relayOne, READWRITE, ON_CHANGE, onRelayOneChange);
   ArduinoCloud.addProperty(relayTwo, READWRITE, ON_CHANGE, onRelayTwoChange);
+  ArduinoCloud.addProperty(time_read, READ, ON_CHANGE, NULL);
 
 }
 

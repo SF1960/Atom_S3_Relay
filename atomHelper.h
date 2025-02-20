@@ -23,6 +23,7 @@ namespace atom{
     pinMode(backLight, INPUT);           // backlight input pin
     relayOne = false;                    // set the relay cloud variable to false
     relayTwo = true;                     // set the screen cloud variable to true
+    inAuto = false;                      // set the screen cloud variable to false
     auto cfg = M5.config();
     AtomS3.begin(cfg);
     width = AtomS3.Lcd.width();          // get the screen's width
@@ -50,7 +51,7 @@ namespace atom{
     Serial.printf("WIDTH: %d HEIGHT: %d\n", width, height);
   }
 
-  void screenOFF(){
+  void screenOff(){
     digitalWrite(backLight, LOW);                // turn off backlight - the preffered method, which doesn't seem to work at the moment
     AtomS3.Lcd.setBrightness(0);                 // set the screen brightness to zero (off)
     relayTwo = false;                            // set the screen relay Cloud Variable to False
@@ -67,5 +68,6 @@ namespace atom{
   void brightness(){
     AtomS3.Lcd.setBrightness(screenBrightness);  // set the screen's brightness depending on the value of cloud variable
   }
+
   
 }

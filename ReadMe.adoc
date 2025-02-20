@@ -25,7 +25,10 @@ Connect the Relay Module to the Atom
 == Function
 
 When switched on, the device attempts to connect to a WiFi network.
-
+If it has previously connected to a nearby network then it will.
+Otherwise, it will display a message asking the user to chose **_Select_WiFi_**
+from a list of available networks. Once seleted, a webpage will open listing
+available networks. Select your network and add the password.
 The device will connect to the network and then Arduino Cloud.
 Once connected, the display will show **~** either side of the screen status prompt.
 

@@ -19,6 +19,7 @@ namespace relay{
     digitalWrite(R1, LOW);          // initialise the relay as off
     relayOne = false;               // set the cloud variable for the relay to off
     relayTwo = true;                // set the cloud variable for the screen to on
+    inAuto = false;                 // set the cloud variable for automatic mode
   }
 
   void latchRelay(){
@@ -29,7 +30,7 @@ namespace relay{
       
       digitalWrite(R1, LOW);        // turn off the relay
       relayOne = false;             // set the cloud variable to 0
-
+     
       AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
       AtomS3.Lcd.setTextColor(GREEN);
       AtomS3.Lcd.drawString("OFF", 43, 50, 2);
@@ -49,21 +50,38 @@ namespace relay{
     }
 
     on = !on;                       // toggle the static variable
-
+      
   }
 
   void relay1_ON(){
+
+    if(relayOne == false){
+      AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
+      AtomS3.Lcd.setTextColor(RED);
+      AtomS3.Lcd.drawString("ON", 50, 50, 2);
+      AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, RED);
+      AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, RED);
+    }
     
     digitalWrite(R1, HIGH);         // turn on the devices output pin
-    relayOne = 1;                   // set the cloud variable to inform the dashboard 
-    
+    relayOne = true;                // set the cloud variable to inform the dashboard 
+  
   }
   
   void relay1_OFF(){
+
+    if(relayOne==true){
+      AtomS3.Lcd.fillRect(40, 45, 60, 40, BLACK);
+      AtomS3.Lcd.setTextColor(GREEN);
+      AtomS3.Lcd.drawString("OFF", 43, 50, 2);
+      AtomS3.Lcd.drawRoundRect(35, 45, 60, 40, 3, GREEN);
+      AtomS3.Lcd.drawRoundRect(0, 0, width, height, 5, GREEN);      
+    }
     
     digitalWrite(R1, LOW);          // turn off the devices outout pin
-    relayOne = 0;                   // set the cloud variable to inform the dashboard 
+    relayOne = false;               // set the cloud variable to inform the dashboard 
     
   }
   
 }
+

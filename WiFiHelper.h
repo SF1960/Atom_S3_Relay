@@ -7,8 +7,8 @@
 *
 *********************************************************************************/
 
-char ssid[] = "VM3988748_LJ";     //  your network SSID (name)
-char pass[] = "nr5jfPxrvxmw";     // your network password
+char ssid[] = "VM9858533_LJ";     //  your network SSID (name)
+char pass[] = "9affGndbyc3fhxdp";     // your network password
 int status = WL_IDLE_STATUS;      // the Wifi radio's status
 
 namespace wifi {
